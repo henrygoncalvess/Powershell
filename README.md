@@ -16,6 +16,7 @@
   - [Pré-requisitos](#pré-requisitos)
   - [Etapas](#etapas)
 - [Instrução de uso](#instrução-de-uso)
+- [Comandos GIT simplificados](#comandos-git-simplificados)
   
 </details>
 
@@ -84,6 +85,25 @@ No Powershell, teste o funcionamento executando um dos comandos abaixo.
 
 Lista de comandos e suas funcionalidades:
 
+### Em qualquer diretório
+
+COMANDO | RETORNO
+:---: | :---:
+**cc help** | lista com todos os comandos e parâmetros disponíveis
+
+<br>
+
+### Comandos GIT simplificados
+
+> [!important]
+> Utilizar apenas dentro de repositórios
+
 COMANDO | PARÂMETROS | RETORNO
 :---: | :---: | :---:
-em andmento... | em andmento... | em andmento...
+**cc log** | `*nenhum*` | logs dos últimos 5 commits
+**cc log** | `quantidade` | logs dos commits de acordo com a quantidade
+**cc log** | `-o` | logs com apenas UMA LINHA dos últimos 5 commits
+**cc log** | `-o` `quantidade` | logs com apenas UMA LINHA dos últimos 5 commits
+
+<br>
+
