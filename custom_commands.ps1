@@ -1,7 +1,13 @@
 param (
     [string]$comando,
     [switch]$o,
-    [string]$quantidade
+    [string]$quantidade,
+
+    [switch]$rs,
+    [switch]$rt,
+    [switch]$d,
+    [switch]$s,
+    [string]$file
 )
 
 switch($comando){
@@ -18,7 +24,15 @@ switch($comando){
     }
 
     "stt"{
-        git status
+        if ($rs -and $file){
+            Write-Host 'rs'
+        } elseif ($o) {
+            git log --oneline -5
+        } elseif ($quantidade){
+            git log -$quantidade
+        } else{
+            git status
+        }
     }
 
     "help" {
@@ -75,5 +89,9 @@ switch($comando){
         colorir "`n`n"
     }
 
-    default { colorir 'Comando inválido. Digite "cc help" para ver a lista de comandos.' }
+    default {
+        Write-Host "`n Comando inválido. Digite" -ForegroundColor Red -NoNewline
+        Write-Host " cc help" -ForegroundColor Green -NoNewline
+        Write-Host " para ver a lista de comandos.`n" -ForegroundColor Red
+    }
 }
