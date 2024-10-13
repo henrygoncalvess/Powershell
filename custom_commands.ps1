@@ -6,8 +6,7 @@ param (
     [switch]$rs,
     [switch]$rt,
     [switch]$d,
-    [switch]$s,
-    [string]$file
+    [switch]$s
 )
 
 switch($comando){
@@ -23,14 +22,44 @@ switch($comando){
         }
     }
 
-    "stt"{
-        if ($rs -and $file){
-            Write-Host 'rs'
-        } elseif ($o) {
-            git log --oneline -5
-        } elseif ($quantidade){
-            git log -$quantidade
-        } else{
+    "st"{
+        $resposta = $null
+
+        if ($rs){
+            while ($resposta -notmatch "^[sn]$") {
+                $resposta = Read-Host "Tem certeza que deseja remover todos os arquivos do Stage? (s/n)"
+            }
+
+            if ($resposta -eq "s") {
+                git reset .
+            } else {
+                Write-Host "operação cancelada"
+            }
+        }
+        
+        elseif ($rt) {
+            while ($resposta -notmatch "^[sn]$") {
+                $resposta = Read-Host "Tem certeza que deseja desfazer as alterações de todos os arquivos do diretório atual?"
+            }
+
+            if ($resposta -eq "s") {
+                git restore .
+            } else {
+                Write-Host "operação cancelada"
+            }
+        }
+        
+        elseif ($d){
+            Write-Host "`n   mudanças do Stage pro WorkingDirectory`n" -ForegroundColor Yellow
+            git diff .
+        }
+        
+        elseif ($s){
+            Write-Host "`n   mudanças do último commit pro Stage`n" -ForegroundColor Yellow
+            git diff --staged
+        }
+
+        else{
             git status
         }
     }
@@ -69,22 +98,22 @@ switch($comando){
 
 
         # --- --- C O M A N D O --- ---
-        colorir "`n`n-- cc stt" Cyan ' '
+        colorir "`n`n-- cc st" Cyan ' '
         colorir " [<opções>]" DarkGray ' '
         colorir "   Status, WorkingDirectory, Stage, Mudanças`n" Yellow
 
 
         colorir "     [-rs] <arquivo>" Green ' '
-        colorir "   remove o arquivo do Stage sem alterar o WorkingDirectory"
+        colorir "   remove todos os arquivos do Stage sem alterar o WorkingDirectory"
 
         colorir "     [-rt] <arquivo>" Green ' '
-        colorir "   restaura WorkingDirectory"
+        colorir "   descarta todas as alterações do WorkingDirectory"
 
         colorir "     [-d] <arquivo>" Green ' '
-        colorir "   mudanças do Stage pro WorkingDirectory"
+        colorir "   mostra as mudanças do Stage pro WorkingDirectory"
 
-        colorir "     [-d] [-s]" Green ' '
-        colorir "   mudanças do último commit pro Stage"
+        colorir "     [-s]" Green ' '
+        colorir "   mostra as mudanças do último commit pro Stage"
 
         colorir "`n`n"
     }
