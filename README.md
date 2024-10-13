@@ -16,7 +16,9 @@
   - [Pré-requisitos](#pré-requisitos)
   - [Etapas](#etapas)
 - [Instrução de uso](#instrução-de-uso)
-- [Comandos GIT simplificados](#comandos-git-simplificados)
+  - [Em qualquer diretório](#em-qualquer-diretório)
+  - [Comandos GIT simplificados](#comandos-git-simplificados)
+- [Contribuição](#contribuição)
   
 </details>
 
@@ -98,12 +100,11 @@ COMANDO | RETORNO
 > [!important]
 > Utilizar apenas dentro de repositórios
 
-COMANDO | PARÂMETROS | RETORNO
-:---: | :---: | :---:
-**cc log** | `*nenhum*` | logs dos últimos 5 commits
-**cc log** | `quantidade` | logs dos commits de acordo com a quantidade
-**cc log** | `-o` | logs com apenas UMA LINHA dos últimos 5 commits
-**cc log** | `-o` `quantidade` | logs com apenas UMA LINHA dos últimos 5 commits
+![image](https://github.com/user-attachments/assets/bcd34f4d-1132-497b-9281-56f8b62b9303)
 
 <br>
 
+## Contribuição
+
+### Como contribuir com o projeto?
+em andamento...
