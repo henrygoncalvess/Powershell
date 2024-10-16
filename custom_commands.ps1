@@ -1,34 +1,3 @@
-# $opcoes = @("1 - Histórico de commits", "2 - Listar um diretório", "3 - sair")
-# $escolha = $null
-
-# while ($escolha -ne "3") {
-#     Write-Host "O que deseja fazer?"
-
-#     foreach ($opcao in $opcoes) {
-#         Write-Host $opcao
-#     }
-
-#     $escolha = Read-Host "Escolha uma opção"
-
-#     switch ($escolha) {
-#         "1" {
-#             git log --oneline -6
-#             Write-Host
-#         }
-
-#         "2" {
-#             $dir = Read-Host "Digite o caminho do diretório"
-#             Write-Host "Listando arquivos em: $dir"
-#             Get-ChildItem -Path $dir
-#         }
-
-#         "3" { "Saindo..." }
-#         default { Write-Host "Opção inválida. Tente novamente." }
-#     }
-# }
-
-# if (-not [string]::IsNullOrEmpty($quantidade))
-
 param (
     [string]$comando,
     [switch]$o,
@@ -53,8 +22,17 @@ switch($comando){
     }
 
     "help" {
-        Write-Host "log"
-        Write-Host "stt"
+        Write-Host "=== Lista de Comandos Disponíveis: ===" -ForegroundColor Magenta
+        Write-Host "`n1. cc log" -ForegroundColor Cyan -NoNewline
+        Write-Host " - informação dos commits do git" -ForegroundColor Yellow
+        Write-Host "   Parâmetros:"
+        Write-Host "     -o" -ForegroundColor Green -NoNewline
+        Write-Host "   (Opcional)   logs com apenas uma linha.   Padrão: logs com descrição."
+        Write-Host "     [quantidade]" -ForegroundColor Green -NoNewline
+        Write-Host "   (Opcional)   quantidade específica de logs.   Padrão: 5 logs."
+
+        Write-Host "`n2. cc stt" -ForegroundColor Cyan -NoNewline
+        Write-Host " - status do workingDirectory e Stage." -ForegroundColor Yellow
     }
 
     default { Write-Host 'Comando inválido. Digite "cc help" para ver a lista de comandos.' }
