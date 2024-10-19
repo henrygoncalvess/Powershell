@@ -86,34 +86,34 @@ switch($comando){
         
         # --- --- C O M A N D O --- ---
         colorir "`n-- cc log" Cyan ' '
-        colorir " [-o] [quantidade]" DarkGray ' '
-        colorir "   informações dos commits do git`n" Yellow
+        colorir " [<opções>]" DarkGray ' '
+        colorir "`tinformações dos commits do git`n" Yellow
 
 
         colorir "     [-o]" Green ' '
-        colorir "   logs com apenas uma linha"
+        colorir "`t`tlogs com apenas uma linha"
 
         colorir "     [quantidade]" Green ' '
-        colorir "   quantidade específica de logs"
+        colorir "`tquantidade específica de logs"
 
 
         # --- --- C O M A N D O --- ---
         colorir "`n`n-- cc st" Cyan ' '
         colorir " [<opções>]" DarkGray ' '
-        colorir "   Status, WorkingDirectory, Stage, Mudanças`n" Yellow
+        colorir "`tStatus, WorkingDirectory, Stage, Mudanças`n" Yellow
 
 
         colorir "     [-rs] <arquivo>" Green ' '
-        colorir "   remove todos os arquivos do Stage sem alterar o WorkingDirectory"
+        colorir "`tremove todos os arquivos do Stage sem alterar o WorkingDirectory"
 
         colorir "     [-rt] <arquivo>" Green ' '
-        colorir "   descarta todas as alterações do WorkingDirectory"
+        colorir "`tdescarta todas as alterações do WorkingDirectory"
 
         colorir "     [-d] <arquivo>" Green ' '
-        colorir "   mostra as mudanças do Stage pro WorkingDirectory"
+        colorir "`tmostra as mudanças do Stage pro WorkingDirectory"
 
         colorir "     [-s]" Green ' '
-        colorir "   mostra as mudanças do último commit pro Stage"
+        colorir "`t`tmostra as mudanças do último commit pro Stage"
 
         colorir "`n`n"
     }
