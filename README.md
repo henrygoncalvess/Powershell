@@ -6,7 +6,7 @@
 
 ### licença e tecnologias utilizadas
 
-<img src="https://img.shields.io/github/license/henrygoncalvess/API_RESTful?style=for-the-badge"> <img src="https://img.shields.io/badge/powershell-7.5-blue?style=for-the-badge">
+<img src="https://img.shields.io/github/license/henrygoncalvess/Powershell?style=for-the-badge&labelColor=gray&color=97ca00"> <img src="https://img.shields.io/badge/powershell-7.5-blue?style=for-the-badge&logo=powershell&logoColor=darkblue&labelColor=gray">
   
 <details open="open">
 <summary>Tabela de Conteúdos</summary>
