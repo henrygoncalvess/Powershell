@@ -10,6 +10,10 @@ param (
 )
 
 switch($comando){
+    "p"{
+        git pull origin main
+    }
+
     "log" {
         if ($o -and $quantidade){
             git log --oneline -$quantidade
