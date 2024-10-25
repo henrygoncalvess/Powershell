@@ -12,8 +12,8 @@
 <summary>Tabela de Conteúdos</summary>
   
 - [Instrução de instalação](#instrução-de-instalação)
-  - [Clonando Repositório](#clonando-repositório)
   - [Pré-requisitos](#pré-requisitos)
+  - [Clonando Repositório](#clonando-repositório)
   - [Etapas](#etapas)
 - [Instrução de uso](#instrução-de-uso)
   - [Em qualquer diretório](#em-qualquer-diretório)
@@ -24,6 +24,13 @@
 
 ## Instrução de instalação
 
+### Pré-requisitos
+Sistema operacional: Windows
+
+- **Powershell** - [Tutorial de instalação](https://learn.microsoft.com/pt-br/powershell/scripting/install/installing-powershell-on-windows?view=powershell-7.4)
+
+<br>
+
 ### Clonando Repositório
 No Terminal, certifique de que você está na pasta onde vai ficar o repositório
 
@@ -31,15 +38,6 @@ No Terminal, certifique de que você está na pasta onde vai ficar o repositóri
 ``` bash
 git clone https://github.com/henrygoncalvess/Powershell.git
 ```
-
-<br>
-
-### Pré-requisitos
-Sistema operacional: Windows
-
-- **Powershell** - [Tutorial de instalação](https://learn.microsoft.com/pt-br/powershell/scripting/install/installing-powershell-on-windows?view=powershell-7.4)
-
-<!-- - **Node.js** - [Tutorial de instalação](https://nodejs.org/pt) -->
 
 <br>
 
@@ -101,10 +99,3 @@ COMANDO | RETORNO
 > Utilizar apenas dentro de repositórios
 
 ![image](https://github.com/user-attachments/assets/bcd34f4d-1132-497b-9281-56f8b62b9303)
-
-<br>
-
-## Contribuição
-
-### Como contribuir com o projeto?
-em andamento...
