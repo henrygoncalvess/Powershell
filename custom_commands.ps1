@@ -118,8 +118,6 @@ switch($comando){
         Write-Host "################# Lista de comandos personalizados disponíveis #################" -ForegroundColor Blue
         Write-Host "`n`t`t`topcional: []     obrigatório: <>" -ForegroundColor Magenta
 
-        descrever_comando "upgrade-posh" 'ao iniciar o terminal pergunta se deseja atualizar "Oh-My-Posh"' `t`t
-
         descrever_comando "log" "informações dos commits do git" `t @(
             [PSCustomObject]@{
                 "[-o]" = "`t`t`tlogs com apenas uma linha"
@@ -143,6 +141,10 @@ switch($comando){
                 "[-s]" = "`t`t`tmostra as mudanças do último commit pro Stage"
             }
         )
+
+        descrever_comando "upgrade-posh" 'ao iniciar o terminal pergunta se deseja atualizar "Oh-My-Posh"' `t`t
+        
+        descrever_comando "p" 'executa um pull, trazendo todas as alterações do repositório remoto' `t`t`t`t
 
         Write-Host
     }
