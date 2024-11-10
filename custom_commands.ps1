@@ -11,11 +11,14 @@ param (
 
 switch($comando){
     "update-posh"{
-        Write-Host 'Deseja atualizar "Oh-My-Posh"?' -NoNewline
-        $escolha = Read-Host " [s/n]"
+        $escolha = $null
 
-        switch ($escolha) {
-            "s" {
+        while ($escolha -ne "n"){
+            Write-Host 'Deseja atualizar "Oh-My-Posh"?' -ForegroundColor Green -NoNewline
+            Write-Host ' [s/n]: ' -ForegroundColor Yellow -NoNewline
+            $escolha = Read-Host
+
+            if ($escolha -eq "s"){
                 oh-my-posh upgrade --force
             }
         }
