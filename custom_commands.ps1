@@ -87,24 +87,31 @@ switch($comando){
             param (
                 [string]$texto,
                 [string]$cor = "White",
-                [string]$nnl
+                [string]$no_new_line
             )
 
-            if ([string]::IsNullOrEmpty($nnl)){
+            if ([string]::IsNullOrEmpty($no_new_line)){
                 Write-Host $texto -ForegroundColor $cor
             }else{
                 Write-Host $texto -ForegroundColor $cor -NoNewline
             }
         }
 
-        colorir "`n`n====== Lista de Comandos Disponíveis ======" Blue
+        # $comando, $funcao, $parametro, $descricao
+        function descrever_comando ($comando, $funcao) {
+            Write-Host "`n`n-- $comando" -ForegroundColor Cyan -NoNewline
+            Write-Host "`t[<opções>]" -ForegroundColor DarkGray -NoNewline
+            Write-Host "`t$funcao`n" -ForegroundColor Yellow
+        }
+
+        colorir "`n====== Lista de Comandos Disponíveis ======" Blue
         colorir "`n   opcional: []     obrigatório: <>" Magenta
 
-
+        descrever_comando "update-posh" "atualizar"
         
         # --- --- C O M A N D O --- ---
         colorir "`n-- cc log" Cyan ' '
-        colorir " [<opções>]" DarkGray ' '
+        colorir "`t[<opções>]" DarkGray ' '
         colorir "`tinformações dos commits do git`n" Yellow
 
 
@@ -117,7 +124,7 @@ switch($comando){
 
         # --- --- C O M A N D O --- ---
         colorir "`n`n-- cc st" Cyan ' '
-        colorir " [<opções>]" DarkGray ' '
+        colorir "`t[<opções>]" DarkGray ' '
         colorir "`tStatus, WorkingDirectory, Stage, Mudanças`n" Yellow
 
 
@@ -133,7 +140,7 @@ switch($comando){
         colorir "     [-s]" Green ' '
         colorir "`t`tmostra as mudanças do último commit pro Stage"
 
-        colorir "`n`n"
+        colorir "`n"
     }
 
     default {
