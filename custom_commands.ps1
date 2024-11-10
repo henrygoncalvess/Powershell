@@ -105,24 +105,33 @@ switch($comando){
                 [string]$comando,
                 [string]$funcao,
                 [string]$tabelacao,
-                [PSCustomObject]$parametro_e_descricao = $null
+                [PSCustomObject[]]$parametro_e_descricao
             )
 
-            Write-Host "`n-- $comando" -ForegroundColor Cyan -NoNewline
+            Write-Host "`n`n-- $comando" -ForegroundColor Cyan -NoNewline
             Write-Host "`t[<opções>]" -ForegroundColor DarkGray -NoNewline
             Write-Host "`t$funcao`n" -ForegroundColor Yellow
 
-            if ($parametro_e_descricao -ne $null){
-                Write-Host "     [-teste]" -ForegroundColor Green -NoNewline
+            foreach ($item in $parametro_e_descricao){
+                Write-Host "     [$($item.p)]" -ForegroundColor Green -NoNewline
                 Write-Host $tabelacao -NoNewline
-                Write-Host "descrição"
+                Write-Host "$($item.d)"
             }
         }
 
         colorir "`n====== Lista de Comandos Disponíveis ======" Blue
         colorir "`n   opcional: []     obrigatório: <>" Magenta
 
-        descrever_comando "upgrade-posh" "atualizar" "`t`t" "a"
+        descrever_comando "upgrade-posh" "atualizar" "`t`t" @(
+            [PSCustomObject]@{
+                p = "param"
+                d = "decrição"
+            },
+            [PSCustomObject]@{
+                p = "param2"
+                d = "decrição2"
+            }
+        )
 
         # --- --- C O M A N D O --- ---
         colorir "`n-- cc log" Cyan ' '
