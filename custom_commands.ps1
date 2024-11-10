@@ -10,11 +10,13 @@ param (
 )
 
 switch($comando){
-    "update-posh"{
+    "upgrade-posh"{
         $escolha = $null
 
         while ($escolha -ne "n"){
-            Write-Host 'Deseja atualizar "Oh-My-Posh"?' -ForegroundColor Green -NoNewline
+            Write-Host 'Deseja atualizar "' -ForegroundColor Cyan -NoNewline
+            Write-Host 'Oh-My-Posh' -ForegroundColor Green -NoNewline
+            Write-Host '"?' -ForegroundColor Cyan -NoNewline
             Write-Host ' [s/n]: ' -ForegroundColor Yellow -NoNewline
             $escolha = Read-Host
 
@@ -107,7 +109,7 @@ switch($comando){
         colorir "`n====== Lista de Comandos Disponíveis ======" Blue
         colorir "`n   opcional: []     obrigatório: <>" Magenta
 
-        descrever_comando "update-posh" "atualizar"
+        descrever_comando "upgrade-posh" "atualizar"
         
         # --- --- C O M A N D O --- ---
         colorir "`n-- cc log" Cyan ' '
