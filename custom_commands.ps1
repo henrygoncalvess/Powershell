@@ -104,7 +104,6 @@ switch($comando){
             param (
                 [string]$comando,
                 [string]$funcao,
-                [string]$tabelacao,
                 [PSCustomObject[]]$parametro_e_descricao
             )
 
@@ -114,36 +113,25 @@ switch($comando){
 
             foreach ($item in $parametro_e_descricao){
                 Write-Host "     [$($item.p)]" -ForegroundColor Green -NoNewline
-                Write-Host $tabelacao -NoNewline
-                Write-Host "$($item.d)"
+                Write-Host "$($item.t)$($item.d)"
             }
         }
 
         colorir "`n====== Lista de Comandos Disponíveis ======" Blue
         colorir "`n   opcional: []     obrigatório: <>" Magenta
 
-        descrever_comando "upgrade-posh" "atualizar" "`t`t" @(
+        descrever_comando "cc log" "informações dos commits do git" @(
             [PSCustomObject]@{
-                p = "param"
-                d = "decrição"
+                t = "`t`t"
+                p = "-o"
+                d = "logs com apenas uma linha"
             },
             [PSCustomObject]@{
-                p = "param2"
-                d = "decrição2"
+                t = "`t"
+                p = "quantidade"
+                d = "quantidade específica de logs"
             }
         )
-
-        # --- --- C O M A N D O --- ---
-        colorir "`n-- cc log" Cyan ' '
-        colorir "`t[<opções>]" DarkGray ' '
-        colorir "`tinformações dos commits do git`n" Yellow
-
-
-        colorir "     [-o]" Green ' '
-        colorir "`t`tlogs com apenas uma linha"
-
-        colorir "     [quantidade]" Green ' '
-        colorir "`tquantidade específica de logs"
 
 
         # --- --- C O M A N D O --- ---
