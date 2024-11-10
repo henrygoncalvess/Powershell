@@ -10,6 +10,17 @@ param (
 )
 
 switch($comando){
+    "update-posh"{
+        Write-Host 'Deseja atualizar "Oh-My-Posh"?' -NoNewline
+        $escolha = Read-Host " [s/n]"
+
+        switch ($escolha) {
+            "s" {
+                oh-my-posh upgrade --force
+            }
+        }
+    }
+
     "p"{
         git pull origin main
     }
