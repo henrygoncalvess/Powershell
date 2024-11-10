@@ -99,9 +99,14 @@ switch($comando){
             }
         }
 
-        # $comando, $funcao, $parametro, $descricao
-        function descrever_comando ($comando, $funcao) {
-            Write-Host "`n`n-- $comando" -ForegroundColor Cyan -NoNewline
+        # $comando, $funcao, $parametro_e_descricao, $tabelacao
+        function descrever_comando {
+            param (
+                [string]$comando,
+                [string]$funcao
+            )
+
+            Write-Host "`n-- $comando" -ForegroundColor Cyan -NoNewline
             Write-Host "`t[<opções>]" -ForegroundColor DarkGray -NoNewline
             Write-Host "`t$funcao`n" -ForegroundColor Yellow
         }
@@ -110,7 +115,7 @@ switch($comando){
         colorir "`n   opcional: []     obrigatório: <>" Magenta
 
         descrever_comando "upgrade-posh" "atualizar"
-        
+
         # --- --- C O M A N D O --- ---
         colorir "`n-- cc log" Cyan ' '
         colorir "`t[<opções>]" DarkGray ' '
