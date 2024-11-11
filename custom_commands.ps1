@@ -21,7 +21,21 @@ switch($comando){
             $escolha = Read-Host
 
             if ($escolha -eq "s"){
-                oh-my-posh upgrade --force
+                if ($PSVersionTable.PSEdition -eq "Desktop") {
+                    Start-Process "powershell" -ArgumentList "-NoExit"
+                    exit
+
+                } elseif ($env:WT_SESSION) {
+                    wt -w 0 nt -p "PowerShell" ; exit
+                    
+                } elseif ($PSVersionTable.PSEdition -eq "Core") {
+                    Start-Process "pwsh" -ArgumentList "-NoExit"
+                    exit
+
+                }else {
+                    Write-Host = "opção de reinicialização indisponível para este terminal" -ForegroundColor Cyan
+                    Write-Host = "reinicie o terminal para que as mudanças da atualização sejam aplicadas" -ForegroundColor Cyan
+                }
             }
         }
     }
