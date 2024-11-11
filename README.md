@@ -98,4 +98,4 @@ COMANDO | RETORNO
 > [!important]
 > Utilizar apenas dentro de repositórios
 
-![image](https://github.com/user-attachments/assets/bcd34f4d-1132-497b-9281-56f8b62b9303)
+![image](https://github.com/user-attachments/assets/8ff312ae-cc58-4228-bc99-3906a7078005)

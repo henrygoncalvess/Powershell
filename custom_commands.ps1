@@ -47,7 +47,9 @@ switch($comando){
 
         if ($rs){
             while ($resposta -notmatch "^[sn]$") {
-                $resposta = Read-Host "Tem certeza que deseja remover todos os arquivos do Stage? (s/n)"
+                Write-Host 'Tem certeza que deseja remover todos os arquivos do Stage?' -ForegroundColor Cyan -NoNewline
+                Write-Host ' [s/n]: ' -ForegroundColor Yellow -NoNewline
+                $resposta = Read-Host
             }
 
             if ($resposta -eq "s") {
@@ -59,7 +61,9 @@ switch($comando){
         
         elseif ($rt) {
             while ($resposta -notmatch "^[sn]$") {
-                $resposta = Read-Host "Tem certeza que deseja desfazer as alterações de todos os arquivos do diretório atual?"
+                Write-Host 'Tem certeza que deseja desfazer as alterações de todos os arquivos do diretório atual?' -ForegroundColor Cyan -NoNewline
+                Write-Host ' [s/n]: ' -ForegroundColor Yellow -NoNewline
+                $resposta = Read-Host
             }
 
             if ($resposta -eq "s") {
@@ -85,74 +89,62 @@ switch($comando){
     }
 
     "help" {
-        function colorir {
-            param (
-                [string]$texto,
-                [string]$cor = "White",
-                [string]$no_new_line
-            )
-
-            if ([string]::IsNullOrEmpty($no_new_line)){
-                Write-Host $texto -ForegroundColor $cor
-            }else{
-                Write-Host $texto -ForegroundColor $cor -NoNewline
-            }
-        }
-
-        # $comando, $funcao, $parametro_e_descricao, $tabelacao
         function descrever_comando {
             param (
                 [string]$comando,
                 [string]$funcao,
-                [PSCustomObject[]]$parametro_e_descricao
+                [string]$tabelacao_funcao,
+                [PSCustomObject[]]$parametro_e_descricao = $null
             )
 
-            Write-Host "`n`n-- $comando" -ForegroundColor Cyan -NoNewline
-            Write-Host "`t[<opções>]" -ForegroundColor DarkGray -NoNewline
-            Write-Host "`t$funcao`n" -ForegroundColor Yellow
+            # laranja = 255, 133, 3
+            # ansiColor = `e[38;2;${r};${g};${b}m
+            $laranja = "`e[38;2;255;133;3m"
+            $fim = "`e[0m"
+
+            Write-Host "`n`n-- cc " -ForegroundColor Cyan -NoNewline
+            Write-Host "$laranja$comando$fim" -NoNewline
+            if ($null -ne $parametro_e_descricao){
+                Write-Host "`t[<opções>]" -ForegroundColor DarkGray -NoNewline
+            }
+            Write-Host "$tabelacao_funcao$funcao`n" -ForegroundColor Yellow
 
             foreach ($item in $parametro_e_descricao){
-                Write-Host "     [$($item.p)]" -ForegroundColor Green -NoNewline
-                Write-Host "$($item.t)$($item.d)"
+                Write-Host "     $($item.PSObject.Properties.Name)" -ForegroundColor Green -NoNewline
+                Write-Host "$($item.PSObject.Properties.Value)"
             }
         }
 
-        colorir "`n====== Lista de Comandos Disponíveis ======" Blue
-        colorir "`n   opcional: []     obrigatório: <>" Magenta
+        Write-Host "################# Lista de comandos personalizados disponíveis #################" -ForegroundColor Blue
+        Write-Host "`n`t`t`topcional: []     obrigatório: <>" -ForegroundColor Magenta
 
-        descrever_comando "cc log" "informações dos commits do git" @(
+        descrever_comando "upgrade-posh" 'ao iniciar o terminal pergunta se deseja atualizar "Oh-My-Posh"' `t`t
+
+        descrever_comando "log" "informações dos commits do git" `t @(
             [PSCustomObject]@{
-                t = "`t`t"
-                p = "-o"
-                d = "logs com apenas uma linha"
+                "[-o]" = "`t`t`tlogs com apenas uma linha"
             },
             [PSCustomObject]@{
-                t = "`t"
-                p = "quantidade"
-                d = "quantidade específica de logs"
+                "[quantidade]" = "`t`tquantidade específica de logs"
             }
         )
 
+        descrever_comando "st" "Status, WorkingDirectory, Stage, Mudanças" `t @(
+            [PSCustomObject]@{
+                "[-rs]" = "`t`t`tremove todos os arquivos do Stage sem alterar o WorkingDirectory"
+            },
+            [PSCustomObject]@{
+                "[-rt]" = "`t`t`tdescarta todas as alterações do WorkingDirectory"
+            },
+            [PSCustomObject]@{
+                "[-d]" = "`t`t`tmostra as mudanças do Stage pro WorkingDirectory"
+            },
+            [PSCustomObject]@{
+                "[-s]" = "`t`t`tmostra as mudanças do último commit pro Stage"
+            }
+        )
 
-        # --- --- C O M A N D O --- ---
-        colorir "`n`n-- cc st" Cyan ' '
-        colorir "`t[<opções>]" DarkGray ' '
-        colorir "`tStatus, WorkingDirectory, Stage, Mudanças`n" Yellow
-
-
-        colorir "     [-rs] <arquivo>" Green ' '
-        colorir "`tremove todos os arquivos do Stage sem alterar o WorkingDirectory"
-
-        colorir "     [-rt] <arquivo>" Green ' '
-        colorir "`tdescarta todas as alterações do WorkingDirectory"
-
-        colorir "     [-d] <arquivo>" Green ' '
-        colorir "`tmostra as mudanças do Stage pro WorkingDirectory"
-
-        colorir "     [-s]" Green ' '
-        colorir "`t`tmostra as mudanças do último commit pro Stage"
-
-        colorir "`n"
+        Write-Host
     }
 
     default {
