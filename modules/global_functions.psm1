@@ -1,3 +1,12 @@
+function mensagem_de_erro ($argumento) {
+    Write-Host "`n$argumento " -ForegroundColor Yellow -NoNewline
+    Write-Host "comando inválido. Digite" -ForegroundColor Red -NoNewline
+    Write-Host " cc help" -ForegroundColor Green -NoNewline
+    Write-Host " para ver a lista de comandos.`n" -ForegroundColor Red
+}
+
+
+
 function help {
     function descrever_comando {
         param (
@@ -73,6 +82,10 @@ function upgrade_posh {
 
         if ($escolha -eq "s"){
             oh-my-posh upgrade --force
+            Write-Host '############################################################' -ForegroundColor Cyan
+            Write-Host "Oh-My-Posh Atualizado com sucesso." -ForegroundColor Green
+            Write-Host "Reinicie o terminal para que as atualizações sejam aplicadas" -ForegroundColor Green
+            Write-Host '############################################################' -ForegroundColor Cyan
         }
     }
 }

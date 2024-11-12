@@ -5,12 +5,24 @@ $comandos_globais_path = Join-Path -Path $modulos_path -ChildPath "global_functi
 Import-Module -Name $comandos_git_path
 Import-Module -Name $comandos_globais_path
 
-# comandos globais
-upgrade_posh
-help
-
-# comandos git
-git_pull
+if ($args -eq $null -or $args.Count -eq 0) {
+    mensagem_de_erro $args
+} else {
+    foreach ($arg in $args){
+        switch ($arg) {
+            # COMANDOS GLOBAIS
+            "help" { help break }
+            "upgrade-posh" { upgrade_posh break }
+    
+            # COMANDOS GIT
+            "p" { git_pull break }
+    
+            default {
+                mensagem_de_erro $arg
+            }
+        }
+    }
+}
 
 switch($comando){
     "log" {
@@ -70,10 +82,4 @@ switch($comando){
             git status
         }
     }
-
-    # default {
-    #     Write-Host "`nComando inválido. Digite" -ForegroundColor Red -NoNewline
-    #     Write-Host " cc help" -ForegroundColor Green -NoNewline
-    #     Write-Host " para ver a lista de comandos.`n" -ForegroundColor Red
-    # }
 }
