@@ -1,5 +1,5 @@
-function mensagem_de_erro ($argumento) {
-    Write-Host "`n$argumento " -ForegroundColor Yellow -NoNewline
+function mensagem_de_erro ($comando) {
+    Write-Host "`n$comando " -ForegroundColor Yellow -NoNewline
     Write-Host "comando inválido. Digite" -ForegroundColor Red -NoNewline
     Write-Host " cc help" -ForegroundColor Green -NoNewline
     Write-Host " para ver a lista de comandos.`n" -ForegroundColor Red
