@@ -23,9 +23,11 @@ function help {
 
         Write-Host "`n`n-- cc " -ForegroundColor Cyan -NoNewline
         Write-Host "$laranja$comando$fim" -NoNewline
+
         if ($null -ne $parametro_e_descricao){
             Write-Host "`t[<opções>]" -ForegroundColor DarkGray -NoNewline
         }
+        
         Write-Host "$tabelacao_funcao$funcao`n" -ForegroundColor Yellow
 
         foreach ($item in $parametro_e_descricao){
