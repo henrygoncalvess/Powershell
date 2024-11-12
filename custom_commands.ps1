@@ -1,3 +1,10 @@
+$modulos_path = Join-Path -Path $PSScriptRoot -ChildPath "modules"
+$comandos_git_path = Join-Path -Path $modulos_path -ChildPath "git_functions.psm1"
+$comandos_globais_path = Join-Path -Path $modulos_path -ChildPath "global_functions.psm1"
+
+Import-Module -Name $comandos_git_path
+Import-Module -Name $comandos_globais_path
+
 param (
     [string]$comando,
     [switch]$o,
