@@ -68,7 +68,7 @@ notepad $PROFILE
 #### 4. dentro do perfil do usuário, digite a seguinte linha de código:
 
 > [!important]
-> substitua " [ ] " com suas informações de arquivo
+> substitua " [ ] " por suas informações de arquivo
 
 `...\WindowsPowerShell\Microsoft.PowerShell_profile.ps1`
 ``` powershell
@@ -98,4 +98,4 @@ COMANDO | RETORNO
 > [!important]
 > Utilizar apenas dentro de repositórios
 
-![image](https://github.com/user-attachments/assets/8ff312ae-cc58-4228-bc99-3906a7078005)
+![image](https://github.com/user-attachments/assets/177af375-3965-4357-aeac-9564fe510b31)

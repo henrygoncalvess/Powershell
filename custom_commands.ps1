@@ -156,9 +156,9 @@ switch($comando){
             }
         )
 
-        descrever_comando "upgrade-posh" 'ao iniciar o terminal pergunta se deseja atualizar "Oh-My-Posh"' `t`t
-        
         descrever_comando "p" 'executa um pull, trazendo todas as alterações do repositório remoto' `t`t`t`t
+        
+        descrever_comando "upgrade-posh" 'ao iniciar o terminal pergunta se deseja atualizar "Oh-My-Posh"' `t`t
 
         Write-Host
     }
