@@ -11,6 +11,7 @@ function startup {
     )
 
     switch ($comando) {
+        # COMANDOS GLOBAIS
         "help" {
             help
             return
@@ -34,6 +35,16 @@ function startup {
 
         "st" {
             st @args
+            return
+        }
+
+        "lastC" {
+            if (Get-History -Count 1){
+                $lastC = (Get-History -Count 1).CommandLine
+                Write-Host "último comando digitado: $lastC"
+            }else{
+                Write-Host "não há comandos no histórico"
+            }
             return
         }
         
