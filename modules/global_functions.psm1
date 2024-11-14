@@ -30,17 +30,11 @@ function help {
                 Write-Host "`t`t        $($item.PSObject.Properties.Name)" -ForegroundColor Cyan -NoNewline
                 Write-Host "`t`t        $($item.PSObject.Properties.Value)"
             }
-            Write-Host
-            Write-Host
-            Write-Host
-            Write-Host
+            Write-Host "`n`n`n"
         }else{
             Write-Host "`t`tParâmetros:" -ForegroundColor Blue -NoNewline
             Write-Host "        nenhum" -ForegroundColor Cyan
-            Write-Host
-            Write-Host
-            Write-Host
-            Write-Host
+            Write-Host "`n`n`n"
         }
     }
 
@@ -120,11 +114,25 @@ function vscode {
             code .
             break
         }elseif ($escolha -eq "e"){
-            Write-Host 'Digite o caminho da pasta/arquivo:' -ForegroundColor Cyan
-            Write-Host ">_ " -ForegroundColor Magenta -NoNewline
-            $caminho = Read-Host
+            Write-Host "Digite o caminho da pasta/arquivo:" -ForegroundColor Cyan
+            Write-Host "Exemplos:" -ForegroundColor Gray
+            Write-Host "    C:\Users\usuario\Documentos" -ForegroundColor Gray
+            Write-Host "    .\Documentos`n" -ForegroundColor Gray
 
-            code $caminho
+            $caminho_atual = (Get-Location).Path
+            Write-Host "Caminho atual: " -NoNewline
+            Write-Host $caminho_atual -ForegroundColor Yellow
+
+            $opcoes_disponiveis = (Get-ChildItem -Force).Name
+            Write-Host "Opcoes disponíveis:"
+            foreach ($opcao in $opcoes_disponiveis){
+                Write-Host $opcoes_disponiveis[0] -ForegroundColor Yellow
+            }
+
+            Write-Host ">_ " -ForegroundColor Magenta -NoNewline
+            $caminho_escolhido = Read-Host
+
+            code $caminho_escolhido
             break
         }
     }
