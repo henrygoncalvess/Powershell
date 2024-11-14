@@ -16,35 +16,43 @@ function help {
             [PSCustomObject[]]$parametros = $null
         )
 
-        Write-Host "cc $comando" -ForegroundColor Green
+        Write-Host "cc $comando" -ForegroundColor Magenta
 
-        Write-Host "`t`tDescrição         " -NoNewline
+        Write-Host "`t`tExemplo:      " -ForegroundColor DarkGreen -NoNewline
+        Write-Host "     $exemplo" -ForegroundColor Green
+
+        Write-Host "`t`tDescrição:         " -ForegroundColor DarkYellow -NoNewline
         Write-Host $descricao -ForegroundColor Yellow
 
         if ($null -ne $parametros){
+            Write-Host "`t`tParâmetros:" -ForegroundColor Blue
             foreach ($item in $parametros){
-                Write-Host "`t`tParâmetro" -NoNewline
-                Write-Host "         $($item.PSObject.Properties.Name)" -ForegroundColor Cyan -NoNewline
-                Write-Host "         $($item.PSObject.Properties.Value)"
+                Write-Host "`t`t        $($item.PSObject.Properties.Name)" -ForegroundColor Cyan -NoNewline
+                Write-Host "`t`t        $($item.PSObject.Properties.Value)"
             }
+            Write-Host
+            Write-Host
+            Write-Host
+            Write-Host
         }else{
-            Write-Host "`t`tParâmetro" -NoNewline
-            Write-Host "         nenhum" -ForegroundColor Cyan
+            Write-Host "`t`tParâmetros:" -ForegroundColor Blue -NoNewline
+            Write-Host "        nenhum" -ForegroundColor Cyan
+            Write-Host
+            Write-Host
+            Write-Host
+            Write-Host
         }
-
-        Write-Host "`t`tExemplo      " -NoNewline
-        Write-Host "     $exemplo`n`n"
     }
 
     Write-Host "############################ Lista de comandos disponíveis ############################" -ForegroundColor Blue
-    Write-Host "`n`t`t`topcional: []     obrigatório: <>" -ForegroundColor Magenta
+    Write-Host "`n`t`t`tOPCIONAL: []     OBRIGATÓRIO: <>" -ForegroundColor DarkGray
 
     descrever_comando "log" "informações dos commits do git" "\cc log -o 3" @(
         [PSCustomObject]@{
-            "[-o]" = "`t`tlogs com apenas uma linha"
+            "[-o]" = "`tlogs com apenas uma linha"
         },
         [PSCustomObject]@{
-            "[quantidade]" = " quantidade específica de logs"
+            "[quantidade]" = "quantidade específica de logs"
         }
     )
 
@@ -56,16 +64,16 @@ function help {
             "[-rt]" = "`tdescarta todas as alterações do WorkingDirectory"
         },
         [PSCustomObject]@{
-            "[-d]" = "`t`tmostra as mudanças do Stage pro WorkingDirectory"
+            "[-d]" = "`tmostra as mudanças do Stage pro WorkingDirectory"
         },
         [PSCustomObject]@{
-            "[-s]" = "`t`tmostra as mudanças do último commit pro Stage"
+            "[-s]" = "`tmostra as mudanças do último commit pro Stage"
         }
     )
 
     descrever_comando "p" 'executa um pull, trazendo todas as alterações do repositório remoto' "\cc p"
     
-    descrever_comando "upgrade-posh" 'ao iniciar o terminal pergunta se deseja atualizar "Oh-My-Posh"' "\cc upgrade-posh"
+    descrever_comando "upgrade-posh" 'Atualiza o "Oh-My-Posh"' "\cc upgrade-posh"
 }
 
 
@@ -88,4 +96,8 @@ function upgrade_posh {
             Write-Host '############################################################' -ForegroundColor Cyan
         }
     }
+}
+
+function vscode {
+    
 }

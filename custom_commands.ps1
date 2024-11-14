@@ -38,6 +38,11 @@ function startup {
             return
         }
 
+        "vscode" {
+            vscode
+            return
+        }
+
         Default { mensagem_de_erro $comando }
     }
 }
