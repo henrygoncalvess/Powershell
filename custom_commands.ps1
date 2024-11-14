@@ -42,6 +42,9 @@ function startup {
             if (Get-History -Count 1){
                 $lastC = (Get-History -Count 1).CommandLine
                 Write-Host "último comando digitado: $lastC"
+            }elseif ((Get-History -Count 1).CommandLine -eq "cc a"){
+                Write-Host "o último comando digitado foi: cd"
+                Write-Host "executar push?"
             }else{
                 Write-Host "não há comandos no histórico"
             }
