@@ -99,5 +99,33 @@ function upgrade_posh {
 }
 
 function vscode {
-    
+    $escolha = $null
+
+    while ($escolha -ne "n"){
+        Write-Host 'Deseja abrir o ' -ForegroundColor Cyan -NoNewline
+        Write-Host 'Visual Studio Code ' -ForegroundColor Green -NoNewline
+        Write-Host 'na pasta atual?' -ForegroundColor Cyan
+        Write-Host '[s] ' -ForegroundColor Yellow -NoNewline
+        Write-Host 'abrir na pasta atual'
+        Write-Host '[n] ' -ForegroundColor Yellow -NoNewline
+        Write-Host 'sair'
+        Write-Host '[e] ' -ForegroundColor Yellow -NoNewline
+        Write-Host 'escolher caminho de pasta/arquivo'
+        Write-Host
+        Write-Host ">_ " -ForegroundColor Magenta -NoNewline
+        $escolha = Read-Host
+
+        if ($escolha -eq "s"){
+            Write-Host 'abrindo Visual Studio Code...'
+            code .
+            break
+        }elseif ($escolha -eq "e"){
+            Write-Host 'Digite o caminho da pasta/arquivo:' -ForegroundColor Cyan
+            Write-Host ">_ " -ForegroundColor Magenta -NoNewline
+            $caminho = Read-Host
+
+            code $caminho
+            break
+        }
+    }
 }
