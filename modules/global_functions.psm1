@@ -76,7 +76,6 @@ function upgrade_posh {
     $escolha = $null
 
     while ($escolha -ne "n"){
-        Clear-Host
         Write-Host 'Deseja atualizar "' -ForegroundColor Cyan -NoNewline
         Write-Host 'Oh-My-Posh' -ForegroundColor Green -NoNewline
         Write-Host '"?' -ForegroundColor Cyan -NoNewline
@@ -89,6 +88,7 @@ function upgrade_posh {
             Write-Host "Oh-My-Posh Atualizado com sucesso." -ForegroundColor Green
             Write-Host "Reinicie o terminal para que as atualizações sejam aplicadas" -ForegroundColor Green
             Write-Host '############################################################' -ForegroundColor Cyan
+            break
         }
     }
 }
@@ -112,6 +112,16 @@ function vscode {
     function pergunta_escolha_de_pastas {
         $resposta = $null
         $quantidade_de_opcoes = ((Get-ChildItem -Force).Length - 1)
+        $regex = ""
+
+        if ($quantidade_de_opcoes -le 9){
+            $regex = "^[0-$quantidade_de_opcoes]$"
+        }elseif ($quantidade_de_opcoes -ge 10){
+            $dezena = $quantidade_de_opcoes.ToString().Substring(0, 1)
+            $unidade = $quantidade_de_opcoes.ToString().Substring(1, 1)
+            $regex = "^(?:[0-9]|[0-$dezena][0-$unidade])$"
+        }
+
 
         while ($resposta -ne "exit"){
             Clear-Host
@@ -121,57 +131,81 @@ function vscode {
             Write-Host "[ d ] `t`tDigitar caminho de pasta/arquivo manualmente"
             Write-Host "[ exit ] `tsair`n"
 
-            if ($resposta -eq "d"){
+            if ($resposta -ne "d"){
+                $opcoes_disponiveis = (Get-ChildItem -Force)
+
+                $nomes_de_opcao = @()
+
+                for ($c = 0; $c -lt $opcoes_disponiveis.Count; $c++) {
+                    if ($opcoes_disponiveis[$c].PSIsContainer){
+                        Write-Host "[ $c ]`t`t.\$($opcoes_disponiveis[$c].Name)" -ForegroundColor Green
+                        $nomes_de_opcao += "$($opcoes_disponiveis[$c].Name)"
+                    }else{
+                        Write-Host "[ $c ]`t`t.\$($opcoes_disponiveis[$c].Name)" -ForegroundColor Yellow
+                        $nomes_de_opcao += "$($opcoes_disponiveis[$c].Name)"
+                    }
+                }
+
+                if ($resposta -match $regex) {
+                    $inteiro = $resposta -as [int]
+
+                    $caminho_atual = Get-Location
+                    $novo_caminho = Join-Path -Path $caminho_atual -ChildPath $nomes_de_opcao[$inteiro]
+
+                    Write-Host "`nabrindo Visual Studio Code em:" -ForegroundColor Yellow
+                    Write-Host $novo_caminho
+
+                    code ".\$($nomes_de_opcao[$inteiro])"
+
+                    if((Get-Item $novo_caminho).PSIsContainer -eq $true){
+                        Set-Location -Path "$novo_caminho"
+                    }
+                    break
+                    
+                } else {
+                    Write-Host "`nopção inválida." -ForegroundColor Red
+                }
+
+                Write-Host "`n>_ " -ForegroundColor Magenta -NoNewline
+                $resposta = Read-Host
+            }else{
                 digitar_caminho
                 break
             }
-
-            $opcoes_disponiveis = (Get-ChildItem -Force)
-
-            $nomes_de_opcao = @()
-
-            for ($c = 0; $c -lt $opcoes_disponiveis.Count; $c++) {
-                if ($opcoes_disponiveis[$c].PSIsContainer){
-                    Write-Host "[ $c ]`t`t.\$($opcoes_disponiveis[$c].Name)" -ForegroundColor Green
-                    $nomes_de_opcao += $opcoes_disponiveis[$c].Name
-                }else{
-                    Write-Host "[ $c ]`t`t.\$($opcoes_disponiveis[$c].Name)" -ForegroundColor Yellow
-                    $nomes_de_opcao += $opcoes_disponiveis[$c].Name
-                }
-            }
-
-            Write-Host "`n>_ " -ForegroundColor Magenta -NoNewline
-            $resposta = Read-Host
         }
     }
 
     function digitar_caminho {
         $caminho = $null
 
-        while ($caminho -ne "C:\Users\octan\OneDrive\Documentos\GitHub\Powershell") {
+        while ($true) {
             Clear-Host
+            Write-Host $caminho
+            Write-Host "<- [ voltar ]`n" -ForegroundColor Yellow
             Write-Host "Caminho atual: " -ForegroundColor Cyan -NoNewline
             Write-Host (Get-Location).Path
 
-            Write-Host "Digite o caminho da pasta/arquivo:" -ForegroundColor Cyan
+            Write-Host "`nDigite o caminho da pasta/arquivo" -ForegroundColor Green
             Write-Host "Exemplos:" -ForegroundColor Cyan
             Write-Host "    C:\Users\usuario\Documentos" -ForegroundColor DarkBlue
             Write-Host "    .\Documentos" -ForegroundColor DarkBlue
 
-            Write-Host "`n>_ " -ForegroundColor Magenta -NoNewline
-            $caminho = Read-Host
-
             if ($caminho -eq "C:\Users\octan\OneDrive\Documentos"){
                 Write-Host "caminho válido"
                 # code caminho
-                Set-Location -Path C:\Users\octan\OneDrive\Documentos
+                # Set-Location -Path caminho
+                break
+            }elseif ($caminho -eq "voltar"){
+                Clear-Host
+                pergunta_escolha_de_pastas
                 break
             }else{
-                Write-Host "caminho inválido"
+                Write-Host "`ncaminho ou opção inválida" -ForegroundColor Red
             }
-        }
 
-        Write-Host $caminho
+            Write-Host "`n>_ " -ForegroundColor Magenta -NoNewline
+            $caminho = Read-Host
+        }
     }
 
     $escolha = $null
@@ -187,7 +221,6 @@ function vscode {
         }
         elseif ($escolha -eq "e"){
             pergunta_escolha_de_pastas
-            Clear-Host
             break
         }
     }
