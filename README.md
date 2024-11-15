@@ -34,7 +34,7 @@ Sistema operacional: Windows
 ### Clonando Repositório
 No Terminal, certifique de que você está na pasta onde vai ficar o repositório
 
-```pasta\do\repo\clonado```
+```repositorios\clonados```
 ``` bash
 git clone https://github.com/henrygoncalvess/Powershell.git
 ```
@@ -72,7 +72,7 @@ notepad $PROFILE
 
 `...\WindowsPowerShell\Microsoft.PowerShell_profile.ps1`
 ``` powershell
-Set-Alias -Name cc -Value ['C:\pasta\do\repo\clonado\Powershell\custom_commands.ps1']
+Set-Alias -Name cc -Value ['C:\Users\usuario\repositorios\clonados\Powershell\custom_commands.ps1']
 ```
 `exemplo`
 ![code](https://github.com/user-attachments/assets/7236ff39-5543-4d7a-9a46-b9046e4536e1)
@@ -93,9 +93,4 @@ COMANDO | RETORNO
 
 <br>
 
-### Comandos GIT simplificados
-
-> [!important]
-> Utilizar apenas dentro de repositórios
-
-![image](https://github.com/user-attachments/assets/177af375-3965-4357-aeac-9564fe510b31)
+![image](https://github.com/user-attachments/assets/52326e70-6230-4795-9422-213a6af2f392)

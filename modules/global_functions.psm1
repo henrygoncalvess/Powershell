@@ -30,11 +30,11 @@ function help {
                 Write-Host "`t`t        $($item.PSObject.Properties.Name)" -ForegroundColor Cyan -NoNewline
                 Write-Host "`t`t        $($item.PSObject.Properties.Value)"
             }
-            Write-Host "`n`n`n"
+            Write-Host "`n`n"
         }else{
             Write-Host "`t`tParâmetros:" -ForegroundColor Blue -NoNewline
             Write-Host "        nenhum" -ForegroundColor Cyan
-            Write-Host "`n`n`n"
+            Write-Host "`n`n"
         }
     }
 
@@ -65,9 +65,13 @@ function help {
         }
     )
 
-    descrever_comando "p" 'executa um pull (na main), trazendo todas as alterações do repositório remoto' "\cc p"
+    descrever_comando "p" 'executa um PULL (na main), trazendo todas as alterações do repositório remoto' "\cc p"
     
-    descrever_comando "upgrade-posh" 'Atualiza o "Oh-My-Posh"' "\cc upgrade-posh"
+    descrever_comando "upgrade-posh" 'Atualiza o "Oh-My-Posh" (utilizado ao iniciar o terminal)' "\cc upgrade-posh"
+
+    descrever_comando "vscode" 'abre o vscode no caminho expecificado (utilizado ao iniciar o terminal)' "\cc p"
+    
+    descrever_comando "repo" "detecta a existencia de repositórios git para executar um PULL`n`t`t`t`t   e evitar conflitos (utilizado ao iniciar o terminal)" "\cc upgrade-posh"
 }
 
 
