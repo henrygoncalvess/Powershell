@@ -43,6 +43,11 @@ function startup {
             return
         }
 
+        "repo" {
+            verificar_repositorio
+            return
+        }
+
         Default { mensagem_de_erro $comando }
     }
 }

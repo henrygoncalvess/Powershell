@@ -93,6 +93,29 @@ function upgrade_posh {
     }
 }
 
+
+
+function verificar_repositorio {
+    if (Test-Path .\.git){
+        Clear-Host
+        Write-Host "Caminho atual: " -ForegroundColor Cyan -NoNewline
+        Write-Host (Get-Location).Path
+        Write-Host "`nrepositório git detectado, " -ForegroundColor Green -NoNewline
+        Write-Host "deseja efetuar um " -ForegroundColor Cyan -NoNewline
+        Write-Host "PULL " -ForegroundColor Magenta -NoNewline
+        Write-Host "para trazer " -ForegroundColor Cyan
+        Write-Host "as alterações do repositório remoto e evitar " -ForegroundColor Cyan -NoNewline
+        Write-Host "conflitos" -ForegroundColor Red -NoNewline
+        Write-Host "? " -ForegroundColor Cyan -NoNewline
+        Write-Host "[s/n]" -ForegroundColor Yellow
+
+        Write-Host "`n>_ " -ForegroundColor Magenta -NoNewline
+        $resposta = Read-Host
+    }
+}
+
+
+
 function vscode {
     function pergunta_vscode {
         Clear-Host
@@ -105,8 +128,8 @@ function vscode {
         Write-Host 'sair'
         Write-Host '[e] ' -ForegroundColor Yellow -NoNewline
         Write-Host 'escolher caminho de pasta/arquivo'
-        Write-Host
-        Write-Host ">_ " -ForegroundColor Magenta -NoNewline
+        
+        Write-Host "`n>_ " -ForegroundColor Magenta -NoNewline
     }
 
     function pergunta_escolha_de_pastas {
@@ -152,8 +175,8 @@ function vscode {
                     $caminho_atual = Get-Location
                     $novo_caminho = Join-Path -Path $caminho_atual -ChildPath $nomes_de_opcao[$inteiro]
 
-                    Write-Host "`nabrindo Visual Studio Code em:" -ForegroundColor Yellow
-                    Write-Host $novo_caminho
+                    Write-Host "`nabrindo Visual Studio Code em:"
+                    Write-Host $novo_caminho -ForegroundColor Yellow
 
                     code ".\$($nomes_de_opcao[$inteiro])"
 
@@ -161,7 +184,7 @@ function vscode {
                         Set-Location -Path "$novo_caminho"
                     }
                     break
-                    
+
                 } else {
                     Write-Host "`nopção inválida." -ForegroundColor Red
                 }
