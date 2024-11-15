@@ -65,7 +65,7 @@ function help {
         }
     )
 
-    descrever_comando "p" 'executa um pull, trazendo todas as alterações do repositório remoto' "\cc p"
+    descrever_comando "p" 'executa um pull (na main), trazendo todas as alterações do repositório remoto' "\cc p"
     
     descrever_comando "upgrade-posh" 'Atualiza o "Oh-My-Posh"' "\cc upgrade-posh"
 }
@@ -97,20 +97,31 @@ function upgrade_posh {
 
 function verificar_repositorio {
     if (Test-Path .\.git){
-        Clear-Host
-        Write-Host "Caminho atual: " -ForegroundColor Cyan -NoNewline
-        Write-Host (Get-Location).Path
-        Write-Host "`nrepositório git detectado, " -ForegroundColor Green -NoNewline
-        Write-Host "deseja efetuar um " -ForegroundColor Cyan -NoNewline
-        Write-Host "PULL " -ForegroundColor Magenta -NoNewline
-        Write-Host "para trazer " -ForegroundColor Cyan
-        Write-Host "as alterações do repositório remoto e evitar " -ForegroundColor Cyan -NoNewline
-        Write-Host "conflitos" -ForegroundColor Red -NoNewline
-        Write-Host "? " -ForegroundColor Cyan -NoNewline
-        Write-Host "[s/n]" -ForegroundColor Yellow
+        $resposta = $null
 
-        Write-Host "`n>_ " -ForegroundColor Magenta -NoNewline
-        $resposta = Read-Host
+        while ($resposta -ne "n") {
+            Clear-Host
+            Write-Host "abrindo " -ForegroundColor Cyan -NoNewline
+            Write-Host 'Visual Studio Code ' -ForegroundColor Green -NoNewline
+            Write-Host 'em: ' -ForegroundColor Cyan -NoNewline
+            Write-Host (Get-Location).Path
+            Write-Host "`nrepositório git detectado, " -ForegroundColor Green -NoNewline
+            Write-Host "deseja efetuar um " -ForegroundColor Cyan -NoNewline
+            Write-Host "PULL " -ForegroundColor Magenta -NoNewline
+            Write-Host "(na main) para trazer " -ForegroundColor Cyan
+            Write-Host "as alterações do repositório remoto e evitar " -ForegroundColor Cyan -NoNewline
+            Write-Host "conflitos" -ForegroundColor Red -NoNewline
+            Write-Host "? " -ForegroundColor Cyan -NoNewline
+            Write-Host "[s/n]" -ForegroundColor Yellow
+
+            Write-Host "`n>_ " -ForegroundColor Magenta -NoNewline
+            $resposta = Read-Host
+
+            if ($resposta -eq "s"){
+                git pull origin main
+                break
+            }
+        }
     }
 }
 
@@ -119,7 +130,10 @@ function verificar_repositorio {
 function vscode {
     function pergunta_vscode {
         Clear-Host
-        Write-Host "Deseja abrir o " -ForegroundColor Cyan -NoNewline
+        Write-Host "Pasta atual: " -ForegroundColor Cyan -NoNewline
+        Write-Host (Get-Location).Path
+
+        Write-Host "`nDeseja abrir o " -ForegroundColor Cyan -NoNewline
         Write-Host 'Visual Studio Code ' -ForegroundColor Green -NoNewline
         Write-Host 'na pasta atual?' -ForegroundColor Cyan
         Write-Host '[s] ' -ForegroundColor Yellow -NoNewline
@@ -175,9 +189,6 @@ function vscode {
                     $caminho_atual = Get-Location
                     $novo_caminho = Join-Path -Path $caminho_atual -ChildPath $nomes_de_opcao[$inteiro]
 
-                    Write-Host "`nabrindo Visual Studio Code em:"
-                    Write-Host $novo_caminho -ForegroundColor Yellow
-
                     code ".\$($nomes_de_opcao[$inteiro])"
 
                     if((Get-Item $novo_caminho).PSIsContainer -eq $true){
@@ -199,11 +210,10 @@ function vscode {
     }
 
     function digitar_caminho {
-        $caminho = $null
+        $caminho = ""
 
         while ($true) {
             Clear-Host
-            Write-Host $caminho
             Write-Host "<- [ voltar ]`n" -ForegroundColor Yellow
             Write-Host "Caminho atual: " -ForegroundColor Cyan -NoNewline
             Write-Host (Get-Location).Path
@@ -213,17 +223,18 @@ function vscode {
             Write-Host "    C:\Users\usuario\Documentos" -ForegroundColor DarkBlue
             Write-Host "    .\Documentos" -ForegroundColor DarkBlue
 
-            if ($caminho -eq "C:\Users\octan\OneDrive\Documentos"){
-                Write-Host "caminho válido"
-                # code caminho
-                # Set-Location -Path caminho
+            if (Test-Path -Path $caminho){
+                code $caminho
+                if((Get-Item $caminho).PSIsContainer -eq $true){
+                    Set-Location -Path $caminho
+                }
                 break
             }elseif ($caminho -eq "voltar"){
                 Clear-Host
                 pergunta_escolha_de_pastas
                 break
             }else{
-                Write-Host "`ncaminho ou opção inválida" -ForegroundColor Red
+                Write-Host "`ncaminho incorreto ou opção inválida" -ForegroundColor Red
             }
 
             Write-Host "`n>_ " -ForegroundColor Magenta -NoNewline
