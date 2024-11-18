@@ -16,7 +16,7 @@ function help {
             [PSCustomObject[]]$parametros = $null
         )
 
-        Write-Host "cc $comando" -ForegroundColor Magenta
+        Write-Host " $comando" -ForegroundColor Magenta
 
         Write-Host "`t`tExemplo:      " -ForegroundColor DarkGreen -NoNewline
         Write-Host "     $exemplo" -ForegroundColor Green
@@ -30,15 +30,16 @@ function help {
                 Write-Host "`t`t        $($item.PSObject.Properties.Name)" -ForegroundColor Cyan -NoNewline
                 Write-Host "`t`t        $($item.PSObject.Properties.Value)"
             }
-            Write-Host "`n`n"
+            Write-Host "`n"
         }else{
             Write-Host "`t`tParâmetros:" -ForegroundColor Blue -NoNewline
             Write-Host "        nenhum" -ForegroundColor Cyan
-            Write-Host "`n`n"
+            Write-Host "`n"
         }
     }
 
-    Write-Host "############################ Lista de comandos disponíveis ############################" -ForegroundColor Blue
+    Write-Host "---------------------------------------------------------------------------" -ForegroundColor Blue
+    Write-Host "`t`t      Lista de comandos disponíveis" -ForegroundColor Blue
     Write-Host "`n`t`t`tOPCIONAL: []     OBRIGATÓRIO: <>" -ForegroundColor DarkGray
 
     descrever_comando "log" "informações dos commits do git" "\cc log -o 3" @(
@@ -72,6 +73,8 @@ function help {
     descrever_comando "vscode" 'abre o vscode no caminho expecificado (utilizado ao iniciar o terminal)' "\cc p"
     
     descrever_comando "repo" "detecta a existencia de repositórios git para executar um PULL`n`t`t`t`t   e evitar conflitos (utilizado ao iniciar o terminal)" "\cc upgrade-posh"
+
+    Write-Host "---------------------------------------------------------------------------" -ForegroundColor Blue
 }
 
 
