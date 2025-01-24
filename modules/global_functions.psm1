@@ -79,6 +79,87 @@ function help {
 
 
 
+function show_menu {
+    $options = Get-ChildItem -Directory | Select-Object -ExpandProperty Name
+
+    function showMessage{
+        Clear-Host
+        Write-Host "Pasta atual: " -ForegroundColor Cyan -NoNewline
+        Write-Host (Get-Location).Path
+    
+        Write-Host "`nDeseja utilizar o " -ForegroundColor Cyan -NoNewline
+        Write-Host 'diretório ' -ForegroundColor Green -NoNewline
+        Write-Host 'na pasta atual?' -ForegroundColor Cyan
+        Write-Host '[s] ' -ForegroundColor Yellow -NoNewline
+        Write-Host 'abrir na pasta atual'
+        Write-Host '[e] ' -ForegroundColor Yellow -NoNewline
+        Write-Host 'escolher diretório'
+        
+        Write-Host "`n>_ " -ForegroundColor Magenta -NoNewline
+    }
+
+    function showOptions {
+        Clear-Host
+        Write-Host "Pasta atual: " -ForegroundColor Cyan -NoNewline
+        Write-Host (Get-Location).Path
+
+        Write-Host "`n[ Enter ] Abrir`n" -ForegroundColor Yellow
+        Write-Host "[ -->> ] Avançar" -ForegroundColor Yellow
+        Write-Host "[ <<-- ] Voltar`n" -ForegroundColor Yellow
+
+        for ($c = 0; $c -lt $options.Length; $c++) {
+            if ($c -eq $selectedIndex) {
+                Write-Host "> $($options[$c])" -ForegroundColor Green
+            } else {
+                Write-Host "  $($options[$c])"
+            }
+        }
+    }
+
+    $response = $null
+
+    while ($response -ne "s"){
+        showMessage
+        $response = Read-Host
+
+        if ($response -eq "e"){
+            $selectedIndex = 0
+            $key = $null
+
+            while ($true) {
+                showOptions
+                $key = $Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown").VirtualKeyCode
+
+                switch ($key) {
+                    38 { # Seta para cima
+                        # se selectedIndex -1 for menor que zero -> selectedIndex = quantidade de itens (último item)
+                        $selectedIndex = ($selectedIndex - 1) -lt 0 ? $options.Length - 1 : $selectedIndex - 1
+                    }
+                    40 { # Seta para baixo
+                        $selectedIndex = ($selectedIndex + 1) % $options.Length
+                    }
+                    13 { # Enter
+                        Set-Location $options[$selectedIndex]
+                        return
+                    }
+                    39 { # Seta ->
+                        Push-Location $options[$selectedIndex]
+                        $options = Get-ChildItem -Directory | Select-Object -ExpandProperty Name
+                        $selectedIndex = 0
+                    }
+                    37 { # Seta <-
+                        Pop-Location
+                        $options = Get-ChildItem -Directory | Select-Object -ExpandProperty Name
+                        $selectedIndex = 0
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+
 function upgrade_posh {
     $escolha = $null
 

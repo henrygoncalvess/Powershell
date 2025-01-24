@@ -48,6 +48,11 @@ function startup {
             return
         }
 
+        "menu" {
+            show_menu
+            return
+        }
+
         Default { mensagem_de_erro $comando }
     }
 }
